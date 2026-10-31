@@ -27,7 +27,7 @@ jobs:
 
       - name: Compile unit tests
         run: |
-          gcc -Wall -Wextra -std=c11 \
+          gcc -Wall -Wextra -std=c11 -I\
             tests/test_utils.c utils.c \
             -o test_utils
 
