@@ -1,5 +1,5 @@
 # Address Book Management System
-![Build](https://github.com/YOUR-USERNAME/AddressBook/actions/workflows/build.yml/badge.svg)
+![Build](https://github.com/adwaithjayan/AddressBook/actions/workflows/build.yml/badge.svg)
 
 A command-line **Address Book Management System built with C**. It allows users to create, search, edit, delete, and display contacts through a simple menu-driven interface. Contact information is stored in a CSV file so it can be loaded again when the program starts.
 

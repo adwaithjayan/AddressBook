@@ -1,0 +1,19 @@
+# Executables
+*.exe
+*.out
+addressbook
+
+# Object files
+*.o
+
+# Debug files
+*.dll
+*.so
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
