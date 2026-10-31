@@ -20,16 +20,10 @@ jobs:
           sudo apt-get install -y gcc
 
       - name: Compile AddressBook
-        run: |
-          gcc -Wall -Wextra -std=c11 \
-            main.c contact.c utils.c file.c \
-            -o addressbook
+        run: gcc -Wall -Wextra -std=c11 -I. main.c contact.c utils.c file.c -o addressbook
 
       - name: Compile unit tests
-        run: |
-          gcc -Wall -Wextra -std=c11 -I\
-            tests/test_utils.c utils.c \
-            -o test_utils
+        run: gcc -Wall -Wextra -std=c11 -I. tests/test_utils.c utils.c contact.c file.c -o test_utils
 
       - name: Run unit tests
         run: ./test_utils

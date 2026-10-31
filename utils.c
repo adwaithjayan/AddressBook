@@ -514,7 +514,7 @@ void edit(AddressBook *addressBook, int byname)
 // Deletes the selected contact and shifts the remaining contacts.
 void delete(AddressBook *addressBook, int byname)
 {
-    int c, sl = 1;
+    int sl = 1;
     char ch;
 
     // Prevents deletion when no contact was found.
