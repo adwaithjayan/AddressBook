@@ -43,6 +43,8 @@ AddressBook/
 ├── file.c              # CSV file loading and saving
 ├── file.h              # File-handling declarations
 ├── addressBook.csv     # Contact data
+|__ LICENSE             # License 
+|
 ├── tests/
 │   └── test_utils.c    # Unit tests
 ├── .github/
