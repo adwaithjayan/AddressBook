@@ -1,3 +1,4 @@
+
 name: Build and Test AddressBook
 
 on:
@@ -7,7 +8,8 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  linux-build:
+    name: Linux Build and Test
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +22,61 @@ jobs:
           sudo apt-get install -y gcc
 
       - name: Compile AddressBook
-        run: gcc -Wall -Wextra -std=c11 -I. main.c contact.c utils.c file.c -o addressbook
+        run: |
+          gcc -Wall -Wextra -std=c11 -I. \
+          main.c contact.c utils.c file.c \
+          -o addressbook
 
       - name: Compile unit tests
-        run: gcc -Wall -Wextra -std=c11 -I. tests/test_utils.c utils.c contact.c file.c -o test_utils
+        run: |
+          gcc -Wall -Wextra -std=c11 -I. \
+          tests/test_utils.c utils.c contact.c file.c \
+          -o test_utils
 
       - name: Run unit tests
         run: ./test_utils
+
+      - name: Upload Linux executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: AddressBook-Linux
+          path: addressbook
+
+  windows-build:
+    name: Windows Build and Test
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup MinGW GCC
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: mingw-w64-ucrt-x86_64-gcc
+
+      - name: Compile AddressBook
+        shell: msys2 {0}
+        run: |
+          gcc -Wall -Wextra -std=c11 -I. \
+          main.c contact.c utils.c file.c \
+          -o addressbook.exe
+
+      - name: Compile unit tests
+        shell: msys2 {0}
+        run: |
+          gcc -Wall -Wextra -std=c11 -I. \
+          tests/test_utils.c utils.c contact.c file.c \
+          -o test_utils.exe
+
+      - name: Run unit tests
+        shell: msys2 {0}
+        run: ./test_utils.exe
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: AddressBook-Windows
+          path: addressbook.exe
