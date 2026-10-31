@@ -1,15 +1,13 @@
-
-name: Build AddressBook
+name: Build and Test AddressBook
 
 on:
   push:
     branches: [main]
-
   pull_request:
     branches: [main]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,8 +22,14 @@ jobs:
       - name: Compile AddressBook
         run: |
           gcc -Wall -Wextra -std=c11 \
-          main.c contact.c utils.c file.c \
-          -o addressbook
+            main.c contact.c utils.c file.c \
+            -o addressbook
 
-      - name: Build successful
-        run: echo "AddressBook compiled successfully!"
+      - name: Compile unit tests
+        run: |
+          gcc -Wall -Wextra -std=c11 \
+            tests/test_utils.c utils.c \
+            -o test_utils
+
+      - name: Run unit tests
+        run: ./test_utils
